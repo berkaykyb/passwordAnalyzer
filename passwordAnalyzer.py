@@ -1,8 +1,9 @@
 import string
+import random
 
 def checkPasswordStrength(password, popularPasswords):
     score = 0
-
+    print("\n--- Password Check Report ---")
     if len(password) >= 8:
         score+=3
         print("\nPassword length is sufficient (✓)")
@@ -39,6 +40,29 @@ def checkPasswordStrength(password, popularPasswords):
     else:
         return "Strong Security"
     
+def fixPassword(password):
+    specialChar = string.punctuation
+    password_chars = list(password)
+    if not any(c.isupper() for c in password):
+        index = random.randint(0, len(password_chars))
+        password_chars.insert(index, random.choice(string.ascii_uppercase))
+    if not any(c.islower() for c in password):
+        index = random.randint(0, len(password_chars))
+        password_chars.insert(index, random.choice(string.ascii_lowercase))
+    if not any(c.isdigit() for c in password):
+        index = random.randint(0, len(password_chars))
+        password_chars.insert(index, random.choice(string.digits))
+    if not any(c in specialChar for c in password):
+        index = random.randint(0, len(password_chars))
+        password_chars.insert(index, random.choice(specialChar))
+
+    while len(password_chars) < 8:
+        index = random.randint(0, len(password_chars))
+        password_chars.insert(index, random.choice(string.ascii_letters + string.digits + specialChar))
+
+    return ''.join(password_chars)
+
+    
 def loadPopularPasswords(filename):
     popularPasswords = set()
     try:
@@ -53,7 +77,19 @@ def main():
     popularPasswords = loadPopularPasswords("10k-most-common.txt")
     password = input("Enter a password to check: ")
     result = checkPasswordStrength(password, popularPasswords)
-    print("\nPassword strength : ", result)
+    print("\nPassword Strength:", result)
+
+    if result != "Strong Security":
+        print("\n--- Auto-fixed Suggestions ---")
+        fixed1 = fixPassword(password)
+        fixed2 = fixPassword(password)
+        fixed3 = fixPassword(password)
+        print("Fixed Password 1:", fixed1)
+        print("Fixed Password 2:", fixed2)
+        print("Fixed Password 3:", fixed3)
+        print("\nRechecking Fixed Passwords...")
+        result = checkPasswordStrength(fixed1, popularPasswords)
+        print("\nNew Passwords Strength:", result)
 
 if __name__ == "__main__":
     main()
