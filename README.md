@@ -1,19 +1,3 @@
-## #1 Initial Exploration: Cybersecurity
-
-I am currently exploring different areas within computer engineering to decide my specialization.  
-As a first step, I started with cybersecurity. 
-
-I plan to continue improving this project until I finalize my decision about this area.  
-Some of the upcoming enhancements include:
-
-- Adding a password suggestion feature  (✓)
-- Integrating online APIs to check for password breaches  
-- Developing a graphical user interface (GUI)  
-- Expanding the common password lists and improving performance  
-- Exploring and integrating other cybersecurity tools and projects
-
----
-
 # 🔐 Password Analyzer
 
 This project is a small introduction to cybersecurity.  
